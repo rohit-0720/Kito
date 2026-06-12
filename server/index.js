@@ -2,7 +2,8 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
-import ytSearch from 'yt-search';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 app.use(cors());
@@ -12,11 +13,23 @@ app.get('/search', async (req, res) => {
     const query = req.query.q;
     if (!query) return res.status(400).json({ error: 'Query is required' });
     
-    const r = await ytSearch(query);
-    const videos = r.videos.slice(0, 10).map(v => ({
-      id: v.videoId,
-      title: v.title,
-      thumbnail: v.thumbnail
+    if (!process.env.YOUTUBE_API_KEY) {
+      console.warn("YOUTUBE_API_KEY is missing, returning empty results");
+      return res.json([]);
+    }
+
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${encodeURIComponent(query)}&type=video&key=${process.env.YOUTUBE_API_KEY}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error?.message || 'YouTube API error');
+    }
+
+    const videos = data.items.map(item => ({
+      id: item.id.videoId,
+      title: item.snippet.title,
+      thumbnail: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.default?.url
     }));
     
     res.json(videos);

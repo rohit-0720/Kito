@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, Reorder } from 'motion/react';
 import { Play, Menu, Trash2, Shuffle, X } from 'lucide-react';
 import { Button } from './ui/button';
@@ -32,6 +32,7 @@ export function QueueSheet({
 }: QueueSheetProps) {
   const [localQueue, setLocalQueue] = useState<Song[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const wasDraggedRef = useRef(false);
 
   const currentSong = queue[currentIndex];
   // The reorderable part of the queue is everything EXCEPT the currently playing song
@@ -56,6 +57,11 @@ export function QueueSheet({
     const pastSongs = queue.slice(0, currentIndex + 1);
     const newFullQueue = [...pastSongs, ...localQueue];
     onReorder(newFullQueue);
+    
+    // Prevent immediate click after drag
+    setTimeout(() => {
+      wasDraggedRef.current = false;
+    }, 150);
   };
 
   return (
@@ -138,10 +144,19 @@ export function QueueSheet({
                       key={song.instanceId || `${song.id}-${actualIndex}`}
                       value={song}
                       whileDrag={{ scale: 1.03, opacity: 0.85, boxShadow: "0px 10px 20px rgba(0,0,0,0.5)", zIndex: 50 }}
-                      onDragStart={() => setIsDragging(true)}
+                      onDragStart={() => {
+                        setIsDragging(true);
+                        wasDraggedRef.current = true;
+                      }}
                       onDragEnd={handleDragEnd}
                       className="group flex items-center gap-3 p-3 rounded-2xl transition-colors cursor-grab active:cursor-grabbing bg-white/5 border border-white/5 hover:bg-white/10"
-                      onClick={() => onPlay(actualIndex)}
+                      onClick={(e) => {
+                        if (wasDraggedRef.current) {
+                          e.preventDefault();
+                          return;
+                        }
+                        onPlay(actualIndex);
+                      }}
                     >
                       <img
                         src={song.thumbnail}

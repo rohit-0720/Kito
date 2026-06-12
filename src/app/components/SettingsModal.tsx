@@ -82,7 +82,8 @@ export function SettingsModal({
               </div>
             </div>
 
-            <div className="mt-8 text-center">
+            <div className="mt-8 flex flex-col items-center justify-center gap-1">
+              <p className="text-xs font-mono text-white/50 tracking-wider">Developed by Rohit</p>
               <p className="text-[10px] font-mono text-white/30 tracking-widest uppercase">Kito v1.0</p>
             </div>
           </motion.div>

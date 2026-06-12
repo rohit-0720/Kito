@@ -19,36 +19,21 @@ export function SearchPanel({ onAddToQueue }: SearchPanelProps) {
   const [searchResults, setSearchResults] = useState<Song[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
-  // Mock YouTube search - in real implementation, this would call YouTube Data API
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
-    
     setIsSearching(true);
-    
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    // Mock results
-    const mockResults: Song[] = [
-      {
-        id: 'dQw4w9WgXcQ',
-        title: `${searchQuery} - Artist 1`,
-        thumbnail: `https://img.youtube.com/vi/dQw4w9WgXcQ/default.jpg`,
-      },
-      {
-        id: 'L_jWHffIx5E',
-        title: `${searchQuery} (Official Video)`,
-        thumbnail: `https://img.youtube.com/vi/L_jWHffIx5E/default.jpg`,
-      },
-      {
-        id: '9bZkp7q19f0',
-        title: `${searchQuery} - Live Performance`,
-        thumbnail: `https://img.youtube.com/vi/9bZkp7q19f0/default.jpg`,
-      },
-    ];
-    
-    setSearchResults(mockResults);
-    setIsSearching(false);
+    try {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
+      const response = await fetch(`${backendUrl}/search?q=${encodeURIComponent(searchQuery)}`);
+      if (!response.ok) throw new Error('Search failed');
+      const results: Song[] = await response.json();
+      setSearchResults(results);
+    } catch (error) {
+      console.error(error);
+      setSearchResults([]);
+    } finally {
+      setIsSearching(false);
+    }
   };
 
   return (

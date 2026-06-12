@@ -3,6 +3,7 @@ import { motion, Reorder } from 'motion/react';
 import { Play, Menu, Trash2, Shuffle, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { ScrollArea } from './ui/scroll-area';
+import { MarqueeText } from './ui/marquee-text';
 
 interface Song {
   id: string;
@@ -122,8 +123,12 @@ export function QueueSheet({
                       className="w-12 h-12 rounded-xl object-cover shrink-0 shadow-md"
                     />
                     <div className="flex-1 min-w-0 flex flex-col justify-center">
-                      <p className="text-sm text-white font-medium font-mono truncate">{currentSong.title}</p>
-                      <p className="text-xs font-mono truncate text-pink-300">Kito Session</p>
+                      <MarqueeText 
+                        text={currentSong.title}
+                        className="text-sm text-white font-medium font-mono"
+                        speed={25}
+                      />
+                      <p className="text-xs font-mono truncate text-pink-300 mt-0.5">Kito Session</p>
                     </div>
                     <div className="w-8 h-8 flex items-center justify-center shrink-0 text-pink-400">
                       <Play className="h-5 w-5 fill-current" />
@@ -164,8 +169,12 @@ export function QueueSheet({
                         className="w-10 h-10 rounded-lg object-cover shrink-0 opacity-90"
                       />
                       <div className="flex-1 min-w-0 flex flex-col justify-center">
-                        <p className="text-sm text-white/90 font-medium font-mono truncate">{song.title}</p>
-                        <p className="text-xs font-mono truncate text-white/40">Unknown Artist</p>
+                        <MarqueeText 
+                          text={song.title}
+                          className="text-sm text-white/90 font-medium font-mono"
+                          speed={25}
+                        />
+                        <p className="text-xs font-mono truncate text-white/40 mt-0.5">Unknown Artist</p>
                       </div>
                       
                       <Button

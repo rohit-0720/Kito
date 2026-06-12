@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Play, Pause, SkipForward, SkipBack, Volume1, Volume2 } from 'lucide-react';
+import { MarqueeText } from './ui/marquee-text';
 
 interface VinylPlayerProps {
   isPlaying: boolean;
@@ -158,9 +159,13 @@ export function VinylPlayer({
             <p className="text-xs font-mono mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
               NOW PLAYING
             </p>
-            <p className="font-mono truncate px-2" style={{ color: 'rgba(255,255,255,0.9)' }}>
-              {currentSong.title}
-            </p>
+            <div className="w-full max-w-[250px] mx-auto text-center px-4">
+              <MarqueeText 
+                text={currentSong.title} 
+                className="font-mono text-white/90 text-sm sm:text-base" 
+                speed={30} 
+              />
+            </div>
           </>
         ) : (
           <p className="text-xs font-mono mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>

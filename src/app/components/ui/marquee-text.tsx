@@ -57,6 +57,7 @@ export function MarqueeText({ text, className = '', speed = 40 }: MarqueeTextPro
     >
       <motion.div
         className="flex shrink-0"
+        style={{ willChange: 'transform', transform: 'translateZ(0)' }}
         animate={{ x: [0, -segmentWidth] }}
         transition={{
           repeat: Infinity,

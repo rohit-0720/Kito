@@ -569,7 +569,6 @@ function App() {
           top: '-200px',
           left: '-100px',
           background: 'radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 70%)',
-          filter: 'blur(40px)',
         }}
       />
       <div
@@ -580,7 +579,6 @@ function App() {
           bottom: '-150px',
           right: '-100px',
           background: 'radial-gradient(circle, rgba(236,72,153,0.15) 0%, transparent 70%)',
-          filter: 'blur(40px)',
         }}
       />
       <div
@@ -592,7 +590,6 @@ function App() {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           background: 'radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%)',
-          filter: 'blur(60px)',
         }}
       />
 

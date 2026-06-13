@@ -236,7 +236,7 @@ function RetroNekoCat() {
               initial={{ scale: 0.5, opacity: 0, x: -5 }}
               animate={{ scale: 1, opacity: 1, x: 0 }}
               transition={{ type: 'spring', bounce: 0.4, duration: 0.5, delay: 0.4 }}
-              className="absolute left-full px-3 py-1.5 rounded-sm text-sm select-none flex items-center font-serif italic tracking-wide"
+              className="absolute left-full px-2 py-1 lg:px-3 lg:py-1.5 rounded-sm text-[10px] lg:text-sm select-none flex items-center font-serif italic tracking-wide"
               style={{
                 transformOrigin: 'left center',
                 top: 0,

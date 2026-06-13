@@ -247,34 +247,7 @@ export function VinylPlayer({
         </svg>
       </button>
 
-      {/* Vertical Volume Slider on the right side */}
-      <div 
-        className="absolute right-4 top-12 flex flex-col items-center justify-between py-4 rounded-full border border-white/10 shadow-xl"
-        style={{
-          background: 'rgba(0,0,0,0.2)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          height: '200px',
-          width: '40px',
-        }}
-      >
-        <Volume2 className="h-4 w-4 text-white/70 mb-2 shrink-0" />
-        <div className="w-1.5 flex-1 relative flex justify-center items-center">
-          <input 
-            type="range" 
-            min="0" 
-            max="100" 
-            value={volume} 
-            onChange={(e) => onVolumeChange(Number(e.target.value))}
-            className="absolute w-[120px] h-1.5 rounded-full appearance-none cursor-pointer outline-none transition-all [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-purple-400 [&::-webkit-slider-thumb]:rounded-full [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:bg-purple-400 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-none"
-            style={{
-              transform: 'rotate(-90deg)',
-              background: `linear-gradient(to right, #c084fc ${volume}%, rgba(255,255,255,0.1) ${volume}%)`,
-            }}
-          />
-        </div>
-        <Volume1 className="h-4 w-4 text-white/70 mt-2 shrink-0" />
-      </div>
+
     </div>
   );
 }

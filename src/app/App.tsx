@@ -553,9 +553,6 @@ function App() {
   return (
     <div
       className="min-h-screen relative overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, #0f0518 0%, #130a2e 30%, #1a0a2e 60%, #0d1528 100%)',
-      }}
     >
       {/* Dynamic Background Particles */}
       <BackgroundParticles isPlaying={isPlaying} mode={particleMode} />

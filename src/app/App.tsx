@@ -605,8 +605,16 @@ function App() {
         }}
       />
 
-      {!hasJoined ? (
-        <div className="relative z-10 min-h-screen flex items-center justify-center px-6">
+      <AnimatePresence mode="wait">
+        {!hasJoined ? (
+          <motion.div
+            key="join"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20, filter: 'blur(8px)' }}
+            transition={{ duration: 0.4 }}
+            className="relative z-10 min-h-screen flex items-center justify-center px-6"
+          >
           <div 
             className="w-full max-w-md p-8 rounded-3xl flex flex-col items-center text-center shadow-2xl"
             style={{
@@ -660,9 +668,15 @@ function App() {
               </button>
             </form>
           </div>
-        </div>
+        </motion.div>
       ) : (
-        <>
+        <motion.div
+          key="main"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="relative z-10 w-full"
+        >
           {/* Top-left: Welcome header */}
           <RetroNekoCat />
 
@@ -804,8 +818,9 @@ function App() {
             particleMode={particleMode}
             setParticleMode={setParticleMode}
           />
-        </>
+        </motion.div>
       )}
+      </AnimatePresence>
 
       <Toaster position="top-right" />
     </div>
